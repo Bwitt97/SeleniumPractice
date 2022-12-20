@@ -414,4 +414,47 @@ public class DemoQaTests extends DemoQATestBase{
 		
 		assertTrue(date);
 	}
+	
+	@Test
+	public void sliderTest() {
+		int[] values = {50,30,20,80};
+		boolean slider = new HomePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.elements()
+				.selectCatagory("Widgets")
+				.SelectTab("Slider")
+				.sliderToValuesAndConfirm(values);
+		
+		assertTrue(slider);
+				
+	}
+	
+	@Test
+	public void progressBar()
+	{
+		String expected = "70";
+		String value = new HomePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.elements()
+				.selectCatagory("Widgets")
+				.SelectTab("Progress Bar")
+				.stopAtValue(expected)
+				.getValueOfProgressBar();
+		
+		assertEquals(value,expected,"Values should match");
+	}
+	
+	@Test
+	public void switchTab() {
+		
+		Boolean tab = new HomePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.elements()
+				.selectCatagory("Widgets")
+				.SelectTab("Tabs")
+				.clickById("demo-tab-origin")
+				.checkIfActive("demo-tab-origin");
+	}
+	
+	
 }

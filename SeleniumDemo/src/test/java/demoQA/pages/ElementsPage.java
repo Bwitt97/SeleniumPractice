@@ -593,6 +593,57 @@ public class ElementsPage extends PageObjectBase{
 
 
 
+	public boolean sliderToValuesAndConfirm(int[] values) {
+		WebElement slider = this.getDriver().findElement(By.xpath(".//input[@class='range-slider range-slider--primary']"));
+		Actions slide = new Actions(this.getDriver());
+		for(int num : values) {
+			int scalar = 255*((num-50)*2)/100;
+			Actions action = slide.dragAndDropBy(slider,scalar,0);
+			action.perform();
+			System.out.println(slider.getAttribute("value"));
+			if(String.valueOf(num).equals(slider.getAttribute("value"))==false)
+				return false;
+		}
+		return true;
+	}
+
+
+
+	public ElementsPage stopAtValue(String string) {
+		WebElement startStop_btn=this.getDriver().findElement(By.id("startStopButton"));
+		WebElement progress=this.getDriver().findElement(By.xpath(".//div[@class='progress-bar bg-info']"));
+		String value = progress.getAttribute("aria-valuenow");
+		startStop_btn.click();
+		while(Integer.parseInt(value)<100)
+		{
+		    value = progress.getAttribute("aria-valuenow");
+			if(value.equals(string)) {
+				startStop_btn.click();
+				break;}
+
+		}
+		return this;
+	}
+
+
+
+	public String getValueOfProgressBar() {
+		return this.getDriver().findElement(By.xpath(".//div[@class='progress-bar bg-info']")).getAttribute("aria-valuenow");
+	}
+
+
+
+	public Boolean checkIfActive(String string) {
+		WebElement element = this.getDriver().findElement(By.id(string));
+		if(element.getAttribute("class").equals("nav-item nav-link active"))
+			return true;
+		else
+			return false;
+		
+	}
+
+
+
 
 
 

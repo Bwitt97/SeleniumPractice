@@ -384,11 +384,34 @@ public class DemoQaTests extends DemoQATestBase{
 				.confirmAutoComplete(expected_colors);
 				
 	}
-	
-	public void selectDate() {
+	@Test
+	public void selectDateUsingStringValue() {
 		String birthday = "09/19/1997";
-		String release = "06/02/2023";
-		String deadline = "5/31/2025";
+		Boolean date = new HomePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.elements()
+				.selectCatagory("Widgets")
+				.SelectTab("Date Picker")
+				.enterSelectDateUsingInfo(birthday)
+				.confirmSelectDateEntered(birthday);
+	assertTrue(date);
+	}
+	
+	@Test
+	public void selectDateUsingMultipleValues() {
+		String month = "September";
+		String day = "19";
+		String year = "1997";
+		String expected = "09/19/1997";
 		
+		Boolean date = new HomePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.elements()
+				.selectCatagory("Widgets")
+				.SelectTab("Date Picker")
+				.enterSelectDateUsingValues(month,day,year)
+				.confirmSelectDateEntered(expected);
+		
+		assertTrue(date);
 	}
 }

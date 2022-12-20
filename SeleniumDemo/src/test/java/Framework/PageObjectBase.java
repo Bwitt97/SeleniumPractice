@@ -26,6 +26,11 @@ public abstract class PageObjectBase {
 		PageFactory.initElements(driver, this);
 	}
 	
+	public void setAttributeByClassName(String className, String attribute, String value) {
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+	js.executeScript("document.querySelector('."+className+"').setAttribute('"+attribute+"','"+value+"')");
+		
+	}
 	public String getCurrenUrl()
 	{
 		return this.driver.getCurrentUrl();

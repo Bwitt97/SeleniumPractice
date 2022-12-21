@@ -4,10 +4,12 @@ import java.util.Set;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -69,5 +71,27 @@ public abstract class PageObjectBase {
 		this.getDriver().navigate().to(fullUrl);		
 	}
 
+	public Boolean WaitUntilAttributeVisible(WebElement element, String attr)
+	{
+		try {
+			WebDriverWait wait = new WebDriverWait(this.getDriver(),10);
+			wait.until(new ExpectedCondition<Boolean>(){
+
+				public Boolean apply(WebDriver driver) {
+					String enabled = element.getAttribute("aria-describedby");
+					if(enabled!=null)
+						return true;
+					else
+						return false;
+				}
+				
+			});}
+			catch(TimeoutException e) {
+				System.err.println("UNABLE TO LOCATE ATTRIBUTE");
+				return false;
+			}
+		
+		return true;
+	}
 
 }

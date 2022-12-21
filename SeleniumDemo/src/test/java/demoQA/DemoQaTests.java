@@ -16,7 +16,7 @@ public class DemoQaTests extends DemoQATestBase{
 
 
 	@Test
-	public void canStartDriver() 
+	public void canReachHomePage() 
 	{
 		String url = new HomePage(this.getDriver(),this.getBaseUrl())
 				.navigate()
@@ -454,7 +454,37 @@ public class DemoQaTests extends DemoQATestBase{
 				.SelectTab("Tabs")
 				.clickById("demo-tab-origin")
 				.checkIfActive("demo-tab-origin");
+		
+		assertTrue(tab);
 	}
 	
+	@Test
+	public void toolTipTest()
+	{
+		Boolean toolTip = new HomePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.elements()
+				.selectCatagory("Widgets")
+				.SelectTab("Tool Tips")
+				.confirmToolTipById("toolTipButton");
+		assertTrue(toolTip);	
+	}
+	
+	
+	@Test
+	public void menuTest()
+	{
+		Boolean visible =new HomePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.elements()
+				.selectCatagory("Widgets")
+				.SelectTab("Menu")
+				.moveToAnchorByInnerText("Main Item 2")
+				.moveToAnchorByInnerText("SUB SUB LIST")
+				.moveToAnchorByInnerText("Sub Sub Item 2")
+				.isAnchorDisplayedByInnerText("Sub Sub Item 2");
+				
+		assertTrue(visible);		
+	}
 	
 }

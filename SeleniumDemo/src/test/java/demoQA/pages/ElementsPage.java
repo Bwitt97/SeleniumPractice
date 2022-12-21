@@ -14,9 +14,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -640,6 +642,39 @@ public class ElementsPage extends PageObjectBase{
 		else
 			return false;
 		
+	}
+
+
+
+	public Boolean confirmToolTipById(String string) {
+		WebElement btn = this.getDriver().findElement(By.id(string));
+		this.WaitUntilClickable(btn);
+		Actions act = new Actions(this.getDriver());
+		this.ScrollElementIntoView(btn);
+		act.moveToElement(btn).perform();
+		
+		return this.WaitUntilAttributeVisible(btn, "aria-describedby");
+		
+		
+	
+		
+	
+	}
+
+
+
+	public ElementsPage moveToAnchorByInnerText(String string) {
+		Actions act = new Actions(this.getDriver());
+		WebElement element = this.getElement(".//a[contains(text(),'"+string+"')]");
+		act.moveToElement(element).perform();
+		return this;
+	}
+
+
+
+	public Boolean isAnchorDisplayedByInnerText(String string) {
+		WebElement element = this.getElement(".//a[contains(text(),'"+string+"')]");
+		return element.isDisplayed();
 	}
 
 

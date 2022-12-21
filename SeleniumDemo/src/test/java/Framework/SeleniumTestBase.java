@@ -48,6 +48,19 @@ public abstract class SeleniumTestBase {
 		this.settings=new Setting(properties);
 	}
 	@BeforeMethod
+	public void setup()
+	{
+		loadsettings();
+		launchbrowser();
+	}
+	
+	public String getUsername(){
+		return this.settings.username;
+	}
+	
+	public String getPassword(){
+		return this.settings.password;
+	}
 	public void launchbrowser()
 	{
 	
@@ -58,11 +71,7 @@ public abstract class SeleniumTestBase {
 		this.driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
 	}
 	
-	public void setup()
-	{
-		loadsettings();
-		launchbrowser();
-	}
+
 	@AfterMethod
 	public void close() {
 		this.getDriver().quit();

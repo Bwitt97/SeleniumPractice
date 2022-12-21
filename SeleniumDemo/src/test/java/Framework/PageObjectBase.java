@@ -94,4 +94,28 @@ public abstract class PageObjectBase {
 		return true;
 	}
 
+	
+	public Boolean WaitUntilAttributeValue(WebElement element, String attr, String value)
+	{
+		try {
+			WebDriverWait wait = new WebDriverWait(this.getDriver(),10);
+			wait.until(new ExpectedCondition<Boolean>(){
+
+				public Boolean apply(WebDriver driver) {
+					String enabled = element.getAttribute(attr);
+					if(enabled==value)
+						return true;
+					else
+						return false;
+				}
+				
+			});}
+			catch(TimeoutException e) {
+				System.err.println("UNABLE TO LOCATE ATTRIBUTE");
+				return false;
+			}
+		
+		return true;
+	}
+
 }

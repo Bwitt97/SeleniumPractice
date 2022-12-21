@@ -491,6 +491,7 @@ public class ElementsPage extends PageObjectBase{
 
 	public ElementsPage clickById(String string) {
 		WebElement element =this.getDriver().findElement(By.id(string));
+		this.ScrollElementIntoView(element);
 		this.WaitUntilClickable(element);
 		element.click();
 		return this;
@@ -676,6 +677,27 @@ public class ElementsPage extends PageObjectBase{
 		WebElement element = this.getElement(".//a[contains(text(),'"+string+"')]");
 		return element.isDisplayed();
 	}
+
+
+
+	public ElementsPage clickOptionByValue(String string) {
+		
+		WebElement option = this.getElement(".//option[@value='"+string+"']");
+		this.WaitUntilClickable(option);
+		option.click();
+		return this;
+	}
+
+
+
+	public boolean confirmValueSelected(String color) {
+		
+		return this.getDriver().findElement(By.id("oldSelectMenu")).getAttribute("value").equals(color);
+	}
+
+
+
+
 
 
 

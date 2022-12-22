@@ -17,6 +17,7 @@ import demoQA.pages.ButtonsPage;
 import demoQA.pages.CheckBoxPage;
 import demoQA.pages.DatePickerPage;
 import demoQA.pages.DialogPage;
+import demoQA.pages.DroppablePage;
 import demoQA.pages.DynamicPropertiesPage;
 import demoQA.pages.FramesPage;
 import demoQA.pages.HomePage;
@@ -27,6 +28,7 @@ import demoQA.pages.NestedFramesPage;
 import demoQA.pages.PracticeFormPage;
 import demoQA.pages.ProgressBarPage;
 import demoQA.pages.RadioButtonPage;
+import demoQA.pages.ResizablePage;
 import demoQA.pages.SelectMenuPage;
 import demoQA.pages.SelectablePage;
 import demoQA.pages.SliderPage;
@@ -479,4 +481,28 @@ public class DemoQaTests extends DemoQATestBase{
 		assertEquals(selected,expected,"the values should match");
 	}
 	
+	@Test
+	public void resizeTextBoxTest() {
+		String expected = "width: 210px; height: 250px;";
+		String size = new ResizablePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.resizebox(10,50)
+				.getDimensions("resizableBoxWithRestriction");
+		
+		System.out.println(size);
+		
+		assertEquals(size,expected,"the sizes should match");
+	}
+	
+	@Test
+	public void dragAndDropTest() {
+		String source = "draggable";
+		String target = "droppable";
+		boolean dropped = new DroppablePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.draganddrop(source,target)
+				.confirmDropped();
+		
+		assertTrue(dropped);
+	}
 }

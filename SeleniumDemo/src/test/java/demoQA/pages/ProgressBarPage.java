@@ -25,26 +25,29 @@ public class ProgressBarPage extends PageObjectBase {
 		//START
 		WebElement btn=this.getDriver().findElement(By.xpath(".//div[@id='progressBarContainer']/button"));
 		btn.click();
-		while(true)
+		while(this.getValueOfProgressBar().equals("100")!=true)
 		{
 			if(this.getValueOfProgressBar().equals(string)) {
 				btn=this.getDriver().findElement(By.xpath(".//div[@id='progressBarContainer']/button"));
 				btn.click();
 				break;}
-			
-			if(this.getValueOfProgressBar().equals("100"))
-			{
-				btn=this.getDriver().findElement(By.xpath(".//div[@id='progressBarContainer']/button"));
-				btn.click();
-				
-			}
 		}
+		
+		
+		if(this.getValueOfProgressBar().equals(string)!=true)
+		{
+			btn=this.getDriver().findElement(By.xpath(".//div[@id='progressBarContainer']/button"));
+			btn.click();
+			return this.stopAtValue(string);
+		}
+		
 		return this;
 	}
 	
 
 	
 	public String getValueOfProgressBar() {
+		
 		return this.getDriver().findElement(By.xpath(".//div[@role='progressbar']")).getAttribute("aria-valuenow");
 	}
 }

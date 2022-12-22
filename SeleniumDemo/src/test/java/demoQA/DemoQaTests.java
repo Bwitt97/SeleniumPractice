@@ -28,7 +28,9 @@ import demoQA.pages.PracticeFormPage;
 import demoQA.pages.ProgressBarPage;
 import demoQA.pages.RadioButtonPage;
 import demoQA.pages.SelectMenuPage;
+import demoQA.pages.SelectablePage;
 import demoQA.pages.SliderPage;
+import demoQA.pages.SortPageObject;
 import demoQA.pages.TabsPage;
 import demoQA.pages.TextBoxPage;
 import demoQA.pages.ToolTipsPage;
@@ -448,6 +450,33 @@ public class DemoQaTests extends DemoQATestBase{
 				.clickOptionByValue("2")
 				.confirmValueSelected(color);
 
+	}
+	
+	@Test
+	public void switchOrderList() {
+		String expected="ThreeFiveTwoSixOneFour";
+		String order = new SortPageObject(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.dragAndDropAfter("One","Six")
+				.dragAndDropAfter("Two","Five")
+				.dragAndDropAfter("Four","One")
+				.confirmOrder();
+		
+		assertEquals(order,expected,"the order should match");
+	}
+	
+	@Test
+	public void selectableGridTest() {
+		String expected = "TwoThreeEight";
+		String selected = new SelectablePage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.clickById("demo-tab-grid")
+				.clickLiByInnerText("Two")
+				.clickLiByInnerText("Eight")
+				.clickLiByInnerText("Three")
+				.getSelectedValues();
+		
+		assertEquals(selected,expected,"the values should match");
 	}
 	
 }

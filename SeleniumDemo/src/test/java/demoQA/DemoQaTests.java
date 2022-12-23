@@ -17,15 +17,18 @@ import demoQA.pages.ButtonsPage;
 import demoQA.pages.CheckBoxPage;
 import demoQA.pages.DatePickerPage;
 import demoQA.pages.DialogPage;
+import demoQA.pages.DragabblePage;
 import demoQA.pages.DroppablePage;
 import demoQA.pages.DynamicPropertiesPage;
 import demoQA.pages.FramesPage;
 import demoQA.pages.HomePage;
 import demoQA.pages.ImagePage;
 import demoQA.pages.LinksPage;
+import demoQA.pages.LoginPage;
 import demoQA.pages.MenuPage;
 import demoQA.pages.NestedFramesPage;
 import demoQA.pages.PracticeFormPage;
+import demoQA.pages.ProfilePage;
 import demoQA.pages.ProgressBarPage;
 import demoQA.pages.RadioButtonPage;
 import demoQA.pages.ResizablePage;
@@ -505,4 +508,69 @@ public class DemoQaTests extends DemoQATestBase{
 		
 		assertTrue(dropped);
 	}
+	
+	@Test
+	public void DragTest() {
+		String expected = "position: relative; left: 80px; top: -20px;";
+		String id = "dragBox";
+		int x = 80;
+		int y = -20;
+		String position = new DragabblePage (this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.drag(id,x,y)
+				.getPosition(id);
+		
+		System.out.println(position);
+		assertEquals(position,expected, "the positions should match");
+	}
+	
+	@Test
+	public void loginTest() {
+		String user = this.getUsername();
+		String pass = this.getBookstorePassword();
+		
+		boolean loggedin=new LoginPage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.sendCredentials(user,pass)
+				.confirmLogin();
+		
+		assertTrue(loggedin);
+	}
+	//anchor tag not locatable
+	@Test
+	public void addAndRemoveBook() {
+		String user = this.getUsername();
+		String pass = this.getBookstorePassword();
+		String criteria = "Starch";
+		String title = "Understanding ECMAScript 6";
+		
+		boolean bookAdded=new LoginPage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.sendCredentials(user,pass)
+				.bookStore()
+				.search(criteria)
+				.addBook(title)
+				.goToProfile()
+				.confirmBookAddedThenRemove(title);
+		
+		assertTrue(bookAdded);
+	}
+	//prints table and index of title
+	@Test
+	public void printProfileTable() {
+		String user = this.getUsername();
+		String pass = this.getBookstorePassword();
+		String title = "Learning JavaScript Design Patterns";
+		int index = new LoginPage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.sendCredentials(user,pass)
+				.printTable()
+				.getTitleIndex(title);
+		
+		System.out.println(index);
+		assertEquals(index,1,"the value should match");
+	}
+	
+
+	
 }

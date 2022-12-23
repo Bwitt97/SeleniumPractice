@@ -5,7 +5,7 @@ import java.util.HashMap;
 import Framework.ConfigProperties;
 
 public class Setting {
-	public String browerType, implicitWait,scriptTimeout,password,username,base_url;
+	public String browerType, implicitWait,scriptTimeout,password,username,base_url,bookstore_password;
 	private HashMap<String,String> properties;
 	
 	public Setting(HashMap<String,String> properties) {
@@ -22,5 +22,6 @@ public class Setting {
 		this.base_url=this.properties.get(ConfigProperties.BASE_URL);
 		this.username=this.properties.get(ConfigProperties.USERNAME);
 		this.password=this.properties.get(ConfigProperties.PASSWORD);
+		this.bookstore_password=this.properties.get(ConfigProperties.BOOKSTORE_PASSWORD);
 	}
 }

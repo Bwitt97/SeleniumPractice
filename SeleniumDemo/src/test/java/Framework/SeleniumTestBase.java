@@ -61,6 +61,9 @@ public abstract class SeleniumTestBase {
 	public String getPassword(){
 		return this.settings.password;
 	}
+	public String getBookstorePassword() {
+		return this.settings.bookstore_password;
+	}
 	public void launchbrowser()
 	{
 	

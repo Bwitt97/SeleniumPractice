@@ -25,10 +25,9 @@ public class ProgressBarPage extends PageObjectBase {
 		//START
 		WebElement btn=this.getDriver().findElement(By.xpath(".//div[@id='progressBarContainer']/button"));
 		btn.click();
-		while(this.getValueOfProgressBar().equals("100")!=true)
+		while(this.getValueOfProgressBar().equals("100")==false)
 		{
 			if(this.getValueOfProgressBar().equals(string)) {
-				btn=this.getDriver().findElement(By.xpath(".//div[@id='progressBarContainer']/button"));
 				btn.click();
 				break;}
 		}

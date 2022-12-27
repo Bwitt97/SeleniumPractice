@@ -1,6 +1,7 @@
 package demoQA;
 
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertFalse;
 import static org.testng.Assert.assertTrue;
 
 import java.io.IOException;
@@ -49,9 +50,20 @@ public class DemoQaTests extends DemoQATestBase{
 	@Test
 	public void canReachHomePage() 
 	{
+		String expected ="https://demoqa.com/";
 		String url = new HomePage(this.getDriver(),this.getBaseUrl())
 				.navigate()
 				.getCurrenUrl();
+		
+		assertEquals(url,expected,"the url should match");
+	}
+	@Test
+	public void runAddBlockExtension() {
+		boolean adIsDisplayed = new PracticeFormPage(this.getDriver(),this.getBaseUrl())
+				.navigate()
+				.checkForAds();
+		
+		assertFalse(adIsDisplayed);
 	}
 	@Test
 	public void EnterTestBoxAndSubmit() {
@@ -399,7 +411,7 @@ public class DemoQaTests extends DemoQATestBase{
 	@Test
 	public void progressBar()
 	{
-		String expected = "30";
+		String expected = "20";
 		String value = new ProgressBarPage(this.getDriver(),this.getBaseUrl())
 				.navigate()
 				.stopAtValue("70")

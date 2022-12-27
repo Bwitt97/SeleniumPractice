@@ -1,12 +1,18 @@
 package Framework;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriver.Options;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
@@ -22,6 +28,7 @@ public abstract class SeleniumTestBase {
 	private Setting settings;
 	private WebDriver driver;
 	private final String filename="config.properties";
+	private ChromeOptions options;
 	protected String base_url;
 	
 	public SeleniumTestBase(String url) {
@@ -68,8 +75,10 @@ public abstract class SeleniumTestBase {
 	{
 	
 		System.setProperty("webdriver.chrome.driver","./src/test/resources/chromedriver.exe");
-		this.driver=new ChromeDriver();
-		this.driver.navigate().to("https://google.com");
+        this.options = new ChromeOptions();
+        options.addExtensions(new File("C:\\Users\\brand\\eclipse-workspace\\SeleniumDemo\\src\\test\\resources\\1.45.2_0.crx"));
+        options.setBinary(new File("C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"));
+        this.driver=new ChromeDriver(options);
 		this.driver.manage().window().maximize();
 		this.driver.manage().timeouts().implicitlyWait(10000, TimeUnit.MILLISECONDS);
 	}
